@@ -1,0 +1,20 @@
+<h1>EcoWaste – Smart Sorting Assistant</h1>
+
+<form method="post">
+    <input type="text" name="image_url" placeholder="Image URL of waste" required>
+    <button type="submit">Analyze</button>
+</form>
+
+{% if recommendation %}
+<h2>Recommended bin:</h2>
+<p><strong>{{ recommendation }}</strong></p>
+{% endif %}
+
+{% if analysis %}
+<h3>Detected tags:</h3>
+<ul>
+    {% for tag in analysis.tags %}
+    <li>{{ tag.name }}</li>
+    {% endfor %}
+</ul>
+{% endif %}

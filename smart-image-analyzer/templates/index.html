@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}Identifier un déchet{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Importer une image</h2>
+  <form method="POST" enctype="multipart/form-data" class="upload-form">
+    <label class="file-drop" id="dropzone">
+      <input type="file" name="image" accept="image/*" required hidden id="fileInput">
+      <span>Glissez-déposez une image ici ou cliquez pour sélectionner</span>
+    </label>
+    <div id="preview" class="preview hidden">
+      <img id="previewImg" alt="Prévisualisation">
+    </div>
+    <button type="submit" class="btn">Analyser</button>
+  </form>
+</section>
+
+<script>
+  const drop = document.getElementById('dropzone');
+  const input = document.getElementById('fileInput');
+  const preview = document.getElementById('preview');
+  const previewImg = document.getElementById('previewImg');
+
+  drop.addEventListener('click', () => input.click());
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('drag'));
+  drop.addEventListener('drop', e => {
+    e.preventDefault(); drop.classList.remove('drag');
+    if (e.dataTransfer.files.length) {
+      input.files = e.dataTransfer.files;
+      showPreview(input.files[0]);
+    }
+  });
+  input.addEventListener('change', () => {
+    if (input.files.length) showPreview(input.files[0]);
+  });
+  function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      previewImg.src = e.target.result;
+      preview.classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Résultat de l'analyse{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>♻️ Résultat de l'analyse</h2>
+
+  <div class="grid">
+    <div>
+      <p><strong>Type de déchet :</strong> {{ waste_type }}</p>
+      <p><strong>Conseil :</strong> {{ advice }}</p>
+    </div>
+    <div>
+      <h3>Tags détectés</h3>
+      <ul class="tags">
+        {% for tag in tags %}
+        <li class="tag">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <a href="/" class="btn secondary">Analyser une autre image</a>
+</section>
+{% endblock %}
